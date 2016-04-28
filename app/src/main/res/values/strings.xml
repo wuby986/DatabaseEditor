@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Database Editor</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="setting_title">Setting DB</string>
+    <string name="global_title">Global DB</string>
+    <string name="secure_title">Secure DB</string>
+    <string name="gaining_root">Acquiring Root Access</string>
+    <string name="missing_su_title">No SU</string>
+    <string name="missing_su">Unfortunately we didn\'t managed to get Root access, check the su status, or allow the app to access it</string>
+    <string name="exit">Exit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
