@@ -9,10 +9,14 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -41,7 +45,7 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
     private RecyclerView mRecyclerView;
     private String mTableName;
     private List<TableItems> mList;
-
+    EditText search;
 
     public TableValuesFragment() {
     }
@@ -60,6 +64,7 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
         mList = new ArrayList<>();
         mTableName = getArguments().getString(TABLE_NAME);
         View rootView = inflater.inflate(R.layout.fragment_table_values, container, false);
+        search = (EditText) rootView.findViewById(R.id.searchKey);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         CheckSu checkIt = new CheckSu(getActivity(), mTableName);
         checkIt.setOnExecutedListener(this);
@@ -102,7 +107,24 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
             e.printStackTrace();
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(new TableValuesAdapter());
+        final TableValuesAdapter tableValuesAdapter = new TableValuesAdapter();
+        mRecyclerView.setAdapter(tableValuesAdapter);
+        search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tableValuesAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
 
     }
 
@@ -146,8 +168,12 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
 
     }
 
-    public class TableValuesAdapter extends RecyclerView.Adapter<TableValuesAdapter.ViewHolder> {
+    public class TableValuesAdapter extends RecyclerView.Adapter<TableValuesAdapter.ViewHolder> implements Filterable{
+        private List<TableItems>originalList;
 
+        public TableValuesAdapter() {
+            originalList = mList;
+        }
 
         @Override
         public TableValuesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -163,12 +189,39 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
             holder.valueTextView.setText(mList.get(position).value);
             holder.mPosition = position;
 
+
         }
 
         @Override
         public int getItemCount() {
             return mList != null ? mList.size() : 0;
         }
+
+        public Filter getFilter() {
+            final List<TableItems> list = new ArrayList<>();
+
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    for(TableItems tableItems : originalList) {
+                        if(tableItems.key.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                            list.add(tableItems);
+                        }
+                    }
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.count = list.size();
+                    filterResults.values = list;
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    mList = (List<TableItems>) results.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView keyTextView;
