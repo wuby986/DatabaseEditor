@@ -6,9 +6,14 @@
     <string name="global_title">Global DB</string>
     <string name="secure_title">Secure DB</string>
     <string name="gaining_root">Acquiring Root Access</string>
-    <string name="missing_su_title">No SU</string>
+    <string name="missing_su_title">Missing root access</string>
     <string name="missing_su">Unfortunately we didn\'t managed to get Root access, check the su status, or allow the app to access it</string>
     <string name="exit">Exit</string>
+    <string name="value_hint">Value</string>
+    <string name="change_value">Change value</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="search_hint">Enter key to search</string>
+    <string name="enter_string">Enter string</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

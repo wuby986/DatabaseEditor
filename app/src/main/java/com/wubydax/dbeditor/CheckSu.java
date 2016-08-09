@@ -43,7 +43,7 @@ public class CheckSu extends AsyncTask<String, Integer, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog = ProgressDialog.show(mContext, mContext.getResources().getString(R.string.gaining_root), "Please wait...", true, false);
+        mProgressDialog = ProgressDialog.show(mContext, mContext.getResources().getString(R.string.gaining_root), mContext.getResources().getString(R.string.please_wait), true, false);
     }
 
     @Override
@@ -108,4 +108,3 @@ public class CheckSu extends AsyncTask<String, Integer, Boolean> {
     }
 
 }
-

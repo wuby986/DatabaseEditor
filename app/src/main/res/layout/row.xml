@@ -18,10 +18,9 @@
             android:id="@+id/keyTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="10dp"
             android:text="Key"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -29,9 +28,7 @@
             android:id="@+id/valueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_below="@+id/keyTextView"
             android:text="value"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>

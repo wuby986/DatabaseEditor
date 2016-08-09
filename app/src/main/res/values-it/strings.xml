@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="action_settings">Impostazioni</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="setting_title">Setting DB</string>
+    <string name="global_title">Global DB</string>
+    <string name="secure_title">Secure DB</string>
+    <string name="gaining_root">Acquisizione permessi root</string>
+    <string name="missing_su_title">Permessi root non ottenuti</string>
+    <string name="missing_su">Purtroppo all\'app non sono stati concessi i permessi di root, controlla lo stato del root in SuperSU, o garantisci l\'accesso root a quest\'app</string>
+    <string name="exit">Esci</string>
+    <string name="value_hint">Valore</string>
+    <string name="change_value">Cambia valore</string>
+    <string name="please_wait">Attendere...</string>
+    <string name="search_hint">Inserisci parola per cercare</string>
+    <string name="enter_string">Inserisci stringa</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_search">Search</string>
+</resources>

@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
         android:id="@+id/textKey"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:paddingStart="7dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/textValue"
-        android:layout_alignParentStart="true"
-        android:paddingTop="7dp"
-        android:paddingStart="7dp"
-        android:layout_below="@+id/textKey"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/valueEditText"
-        android:hint="Change value"
-        android:paddingStart="7dp"
-        android:layout_below="@+id/textValue"
         android:layout_centerHorizontal="true"
-        android:singleLine="true"/>
+        android:layout_alignParentTop="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:layout_marginTop="7dp"
+        android:paddingBottom="7dp"
+        android:layout_marginBottom="7dp"
+        android:textStyle="bold"
+        android:textColor="#460083" />
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textKey">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/valueEditText"
+            android:hint="@string/value_hint"
+            android:paddingStart="7dp"
+            android:minEms="3"
+            android:singleLine="false"
+            android:layout_gravity="center" />
+
+    </ScrollView>
 
 </RelativeLayout>
