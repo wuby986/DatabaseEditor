@@ -1,7 +1,10 @@
 package com.wubydax.dbeditor;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Service;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +17,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -130,13 +138,30 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
 
     private void showDialog(final String key, final String value, final int position) {
         @SuppressLint("InflateParams") View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_layout, null, false);
-        final TextView valueText = (TextView) view.findViewById(R.id.textValue);
         TextView keyText = (TextView) view.findViewById(R.id.textKey);
         final EditText editText = (EditText) view.findViewById(R.id.valueEditText);
-        valueText.setText(value);
+        final ScrollView scroll = (ScrollView) view.findViewById(R.id.ScrollView1);
+        if(value.matches("\\d+(?:\\.\\d+)?"))
+        {
+            editText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            editText.setSingleLine(true);
+        }
+        else
+        {
+            editText.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            editText.setHint(getResources().getString(R.string.enter_string));
+        }
         keyText.setText(key);
+        editText.setText(value);
+        editText.setSelection(editText.getText().length());
+        scroll.post(new Runnable() {
+            @Override
+            public void run() {
+                scroll.fullScroll(View.FOCUS_DOWN);
+            }
+        });
         new AlertDialog.Builder(getActivity())
-                .setTitle("Change value")
+                .setTitle(getResources().getString(R.string.change_value))
                 .setView(view)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -160,13 +185,13 @@ public class TableValuesFragment extends Fragment implements CheckSu.OnExecutedL
                                     break;
                             }
                             mList.get(position).value = newValue;
-
                         }
                         mRecyclerView.getAdapter().notifyDataSetChanged();
                     }
                 }).show();
-
     }
+
+
 
     public class TableValuesAdapter extends RecyclerView.Adapter<TableValuesAdapter.ViewHolder> implements Filterable{
         private List<TableItems>originalList;
